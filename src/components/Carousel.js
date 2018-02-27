@@ -144,7 +144,7 @@ class Carousel extends Component {
 
     setupAutoPlay () {
         this.autoPlay();
-        const carouselWrapper = this.refs['carouselWrapper'];
+        const carouselWrapper = this.carouselWrapper;
 
         if (this.props.stopOnHover && carouselWrapper) {
             carouselWrapper.addEventListener('mouseenter', this.stopOnHover);
@@ -154,7 +154,7 @@ class Carousel extends Component {
 
     destroyAutoPlay () {
         this.clearAutoPlay();
-        const carouselWrapper = this.refs['carouselWrapper'];
+        const carouselWrapper = this.carouselWrapper;
 
         if (this.props.stopOnHover && carouselWrapper) {
             carouselWrapper.removeEventListener('mouseenter', this.stopOnHover);
@@ -588,10 +588,10 @@ class Carousel extends Component {
             containerStyles.height = this.state.itemSize;
         }
         return (
-            <div className={this.props.className} ref="carouselWrapper">
+            <div className={this.props.className} ref={(c) => this.carouselWrapper = c}>
                 <div className={klass.CAROUSEL(true)} style={{width: this.props.width}}>
                     <button type="button" className={klass.ARROW_PREV(!hasPrev)} onClick={this.decrement} />
-                    <div className={klass.WRAPPER(true, this.props.axis)} style={containerStyles} ref="itemsWrapper">
+                    <div className={klass.WRAPPER(true, this.props.axis)} style={containerStyles} ref={(c) => this.itemsWrapper = c}>
                         { this.props.swipeable ?
                             <Swipe
                                 tagName="ul"
