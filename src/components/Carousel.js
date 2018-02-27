@@ -249,7 +249,7 @@ class Carousel extends Component {
         }
 
         const isHorizontal = this.props.axis === 'horizontal';
-        const firstItem = this.refs.item0;
+        const firstItem = this.item0;
         const itemSize = isHorizontal ? firstItem.clientWidth : firstItem.clientHeight;
 
         this.setState({
@@ -427,13 +427,13 @@ class Carousel extends Component {
 
     getInitialImage = () => {
         const selectedItem = this.props.selectedItem;
-        const item = this.refs[`item${selectedItem}`];
+        const item = this[`item${selectedItem}`];
         const images = item && item.getElementsByTagName('img');
         return images && images[selectedItem];
     }
 
     getVariableImageHeight = (position) => {
-        const item = this.refs[`item${position}`];
+        const item = this[`item${position}`];
         const images = item && item.getElementsByTagName('img');
         if (this.state.hasMount && images.length > 0) {
             const image = images[0];
@@ -459,7 +459,7 @@ class Carousel extends Component {
         return React.Children.map(this.props.children, (item, index) => {
             const itemClass = klass.ITEM(true, index === this.state.selectedItem);
             const slideProps = {
-                ref: 'item' + index,
+                ref: ((c) => this['item' + index] = c),
                 key: 'itemKey' + index,
                 className: klass.ITEM(true, index === this.state.selectedItem),
                 onClick: this.handleClickItem.bind(this, index, item)
