@@ -237,7 +237,7 @@ class Thumbs extends Component {
 
             const thumbProps = {
                 key: index,
-                ref: `thumb${index}`,
+                ref: ((c) => this[`thumb${index}`] = c),
                 className: itemClass,
                 onClick: this.handleClickItem.bind(this, index, this.props.children[index])
             };
